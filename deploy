@@ -1,0 +1,1 @@
+mvn -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8 clean install && cp -r target/*.war ~/Downloads/wildfly-10.0.0.Final/standalone/deployments

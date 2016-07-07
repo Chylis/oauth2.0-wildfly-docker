@@ -1,0 +1,8 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="org.apache.commons.codec" />
+            <module name="org.joda.time" />
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
