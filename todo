@@ -1,4 +1,6 @@
-- Session authentication filter + annotation?
+- Configure session, e.g. timeout, etc
+- View session in admin console and TEST
+
 - Implement SUCCESS.html and FAIL.html pages
 - Implement usage of access token
 - Implement refresh token flow
@@ -8,3 +10,5 @@
 *Optional*
 - Add support for additional OAuth2.0 providers, e.g. Facebook, Twitter, etc...
 - Create Dockerfile
+- Create iOS client with ReactiveCocoa that:
+  -

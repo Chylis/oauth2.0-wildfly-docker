@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static se.magmag.oauth.api.session.Constants.SESSION_KEY_AUTHENTICATED;
 import static se.magmag.oauth.api.session.Constants.SESSION_KEY_GOOGLE_AUTH_STATE;
 
 /**
@@ -65,11 +66,13 @@ public class GoogleService {
     /**
      * Exchanges the auth code for an access token and id token
      * Creates or updates a user
+     * Marks the session as authenticated
      */
     public void handleAuthCodeReceived(HttpSession session, CallbackData data) throws IllegalArgumentException, IllegalStateException {
         final AccessTokenResponse accessTokenResponse = exchangeAuthCodeForAccessToken(session, data);
         final GoogleIdJWTClaims idToken = parseIdToken(accessTokenResponse.getId_token());
         updateOrCreateUser(session.getId(), idToken);
+        session.setAttribute(SESSION_KEY_AUTHENTICATED, true);
     }
 
 
@@ -89,6 +92,7 @@ public class GoogleService {
             throw new IllegalStateException("Invalid state param");
         }
 
+        session.removeAttribute(SESSION_KEY_GOOGLE_AUTH_STATE);
         return googleEndpoint.requestAccessToken(data.getAuthorizationCode()).getData();
     }
 

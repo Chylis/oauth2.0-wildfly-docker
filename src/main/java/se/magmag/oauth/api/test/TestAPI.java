@@ -1,5 +1,6 @@
 package se.magmag.oauth.api.test;
 
+import se.magmag.oauth.api.session.authentication.Authenticated;
 import se.magmag.oauth.persistence.entity.User;
 import se.magmag.oauth.service.UserService;
 
@@ -20,8 +21,9 @@ public class TestAPI {
 
     @GET
     @Path("greet")
+    @Authenticated
     public String greet(@Context HttpServletRequest request) {
         User user = userService.getUserBySessionId(request.getSession().getId());
-        return String.format("Hello there %s!", user == null ? "stranger" : user.getName());
+        return String.format("Hello there %s!", user.getName());
     }
 }
