@@ -1,12 +1,10 @@
+- Session authentication filter + annotation?
 - Implement SUCCESS.html and FAIL.html pages
 - Implement usage of access token
 - Implement refresh token flow
-
-- Implement generation and validation of state token
 - Find google endpoints via google discovery service
 - Move credentials to external credentials file: https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/Configure_the_Enterprise_Application_Platform_to_Use_the_Password_Vault1.html
 
 *Optional*
 - Add support for additional OAuth2.0 providers, e.g. Facebook, Twitter, etc...
-- Add persistence layer, with user entities etc...
 - Create Dockerfile

@@ -10,7 +10,7 @@ import lombok.NonNull;
 public class AccessTokenResponse {
 
     @NonNull private final String access_token;
-    @NonNull private final String id_token; //OpenId Connect GoogleJWTClaims that contains identity information about the user that is digitally signed by Google.
+    @NonNull private final String id_token; //OpenId Connect GoogleIdJWTClaims that contains identity information about the user that is digitally signed by Google.
     @NonNull private final Long expires_in;
     @NonNull private final String token_type; //Identifies the type of token returned. At this time, this field always has the value Bearer.
     private final String refresh_token;

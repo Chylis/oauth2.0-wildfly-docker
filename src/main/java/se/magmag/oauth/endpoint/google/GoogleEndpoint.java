@@ -35,7 +35,7 @@ public class GoogleEndpoint extends DefaultEndpoint {
     private String clientSecret = "F7ByWO2xCO6RzCSCsdah8423";
 
     //TODO: base url should be dynamic
-    private final static String REDIRECT_URI = "http://magpie.ydns.eu:8080/oauth/api/google/oauthCallback";
+    private final static String REDIRECT_URI = "http://magpie.ydns.eu:8002/oauth/api/google/oauthCallback";
 
     //private final static String DISCOVER_URI = "https://accounts.google.com/.well-known/openid-configuration";
     //private static final String DISCOVER_KEY_TOKEN_ENDPOINT = "token_endpoint";
@@ -51,7 +51,7 @@ public class GoogleEndpoint extends DefaultEndpoint {
      */
     public String requestAuthentication(String state) {
         //TODO: Fetch URI via Discover service
-        final Invocation invocation = getTarget("https://www.facebook.com/dialog/oauth?")
+        final Invocation invocation = getTarget("https://accounts.google.com/o/oauth2/auth?")
                 .queryParam("client_id", clientId)
                 .queryParam("response_type", "code")
                 .queryParam("scope", PROFILE.toString())
@@ -65,12 +65,12 @@ public class GoogleEndpoint extends DefaultEndpoint {
     }
 
     /**
-     * Called in order to exchange the auth code for an access token, id_token GoogleJWTClaims (OpenId Connect) and optional refresh token
+     * Called in order to exchange the auth code for an access token, id_token GoogleIdJWTClaims (OpenId Connect) and optional refresh token
 
      * @param authCode The auth code to exchange
      * @return The AccessToken response
      */
-    public EndpointParsedResponse<AccessTokenResponse> requestAuthCode(String authCode) {
+    public EndpointParsedResponse<AccessTokenResponse> requestAccessToken(String authCode) {
         Form form = new Form()
                 .param("code", authCode)
                 .param("client_id", clientId)

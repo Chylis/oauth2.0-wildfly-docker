@@ -22,7 +22,7 @@ public class PropertyFileResolver {
     private Map<String, String> properties = new HashMap<String, String>();
 
     @PostConstruct
-    private void init() throws IOException {
+    private void init() {
 
         //"application.properties" matches the property name as defined in the system-properties element in WildFly
         String propertyFile = System.getProperty("application.properties");

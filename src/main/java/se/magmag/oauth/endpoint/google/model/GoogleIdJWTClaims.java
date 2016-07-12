@@ -7,7 +7,7 @@ import lombok.NonNull;
  * Created by magnus.eriksson on 08/07/16.
  */
 @Data
-public class GoogleJWTClaims {
+public class GoogleIdJWTClaims {
 
     /**
      * The Issuer Identifier for the Issuer of the response. Always https://accounts.google.com or accounts.google.com for Google ID tokens.
