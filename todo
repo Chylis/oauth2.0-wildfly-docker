@@ -1,20 +1,16 @@
-- View session in admin console and TEST
+Docker:
+    - make the mysql image storage persistent
+    - make the build script place the war file in customization
+    - Docker Swarm
+    - Sätt upp lastbalanserare + Docker wildfly kluster (en mysql samt distribuerade sessioner)
 
+App:
 - Implement SUCCESS.html and FAIL.html pages
-- Implement usage of access token
+- Implement usage of access token, e.g. fetch user profile/other resource
 - Implement refresh token flow
 - Find google endpoints via google discovery service
 - Move credentials to external credentials file: https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/Configure_the_Enterprise_Application_Platform_to_Use_the_Password_Vault1.html
-
-*Optional*
 - Add support for additional OAuth2.0 providers, e.g. Facebook, Twitter, etc...
-- Create Dockerfile
-- Create iOS client with ReactiveCocoa that:
 
 
-
-1. Sätt upp Docker image
-2. läs om 
-- Docker compose
-- Docker Swarm
-3. Sätt upp lastbalanserare + Docker wildfly kluster (en mysql samt distribuerade sessioner)
+- Create iOS client with ReactiveCocoa

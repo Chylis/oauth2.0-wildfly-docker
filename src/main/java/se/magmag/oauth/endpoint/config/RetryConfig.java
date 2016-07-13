@@ -16,8 +16,8 @@ public class RetryConfig {
     private static final int DEFAULT_CONNECT_TIMEOUT_MS = 2000;
 
     private int readTimeout = DEFAULT_NO_OF_RETRIES;
-    private int connectionTimeout = DEFAULT_CONNECT_TIMEOUT_MS;;
+    private int connectionTimeout = DEFAULT_CONNECT_TIMEOUT_MS;
     private int retries = DEFAULT_NO_OF_RETRIES;
-    private int waitUntilRetryMs = DEFAULT_WAIT_INCREMENT_MS;;
+    private int waitUntilRetryMs = DEFAULT_WAIT_INCREMENT_MS;
     private int waitIncrementMs = DEFAULT_WAIT_UNTIL_RETRY_MS;
 }
