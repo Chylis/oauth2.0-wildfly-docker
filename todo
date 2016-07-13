@@ -1,5 +1,4 @@
 Docker:
-    - make the mysql image storage persistent
     - make the build script place the war file in customization
     - Docker Swarm
     - Sätt upp lastbalanserare + Docker wildfly kluster (en mysql samt distribuerade sessioner)

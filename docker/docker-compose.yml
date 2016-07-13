@@ -1,30 +1,54 @@
-mysqldb: #https://hub.docker.com/_/mysql/
-  container_name: "mysqldb"
+# Environment variables are defined in the '.env' file located in the same directory as the 'docker-compose.yml' file
 
-  # 'image' decides which image to use from docker hub
-  image: mysql:latest
+# In compose v2, a default network is implicitly created. All services/containers (in the same network) are implicility linked to each other, i.e. there is no need for the 'links' section. 
+# This means that each service/container is able to look up the hostname of another service/container and get back the appropriate IP address, simply by using the service's container name, e.g. 'oauth', or 'mysqldb'.
+# E.g. the oauth service application code can look up the URL to the 'mysqldb' service and connect to it by mysql://mysqldb:3306 and start using the mysql database.
 
-  # 'environment' sets environment variables
-  environment:
-    MYSQL_ROOT_PASSWORD: root
 
-    # specify the name of a database to be created on image startup
-    MYSQL_DATABASE: oauth
+version: '2'
 
-    # this user will be granted superuser permissions for the database specified by the MYSQL_DATABASE
-    MYSQL_USER: oauth
-    MYSQL_PASSWORD: oauth
+services:
+  mysqldb: #https://hub.docker.com/_/mysql/
+    container_name: "${DB_SERVICE_NAME}"
 
-oauth:
-  container_name: "oauth"
+    # 'image' decides which image to use from docker hub
+    image: mysql:latest
 
-  image: chylis88/oauth-wildfly:0.1
+    # 'volumes' mount paths or named volumes 
+    volumes:
+      # mounts the named volume oauth-mysql-data from the underlying host system (the docker-machine host if running MacOS) as /var/lib/mysql inside the container, where MySQL by default will write its data files
+      - oauth-mysql-data:/var/lib/mysql 
 
-  #port to expose from Docker Host: to container
-  ports:
-    - "8080:8080" # web server port
-    - "9990:9990" # jboss admin port
+    # 'environment' sets environment variables
+    environment:
+      MYSQL_ROOT_PASSWORD: root
 
-  #what containers to link to/with
-  links:
-    - mysqldb:db #link with the above mysqldb container and create an alias for the link named "db"
+      # specify the name of a database to be created on image startup
+      MYSQL_DATABASE: ${DB_SERVICE_DATABASE}
+
+      # this user will be granted superuser permissions for the database specified by the MYSQL_DATABASE
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+  oauth:
+    container_name: "oauth"
+    image: chylis88/oauth-wildfly:0.1
+    depends_on:
+      - mysqldb
+
+    environment:
+      DB_URI: ${DB_SERVICE_NAME}
+      DB_PORT: ${DB_SERVICE_PORT}
+      DB_NAME: ${DB_SERVICE_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+    #port to expose from Docker Host: to container
+    ports:
+      - "8080:8080" # web server port
+      - "9990:9990" # jboss admin port
+
+# section for creating named volumes
+volumes:
+  oauth-mysql-data:
+    driver: local

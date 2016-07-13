@@ -22,14 +22,12 @@ ${JBOSS_HOME}/bin/${JBOSS_MODE}.sh -b 0.0.0.0 -c ${JBOSS_CONFIG} &
 echo "=> Waiting for the server to boot"
 wait_for_server
 
-# The below variables are created by Docker when linking containers.
-# The link name/alias is assumed to be "db", the mysql port is assumed to be 3306
-# The variable naming is rather weird, <name>_PORT_<port>_<protocol> - it exposes the port number in the variable name itself.
-echo "=> MYSQL database: " ${DB_ENV_MYSQL_DATABASE}
-echo "=> MYSQL user: " ${DB_ENV_MYSQL_USER}
-echo "=> MYSQL (docker host): " ${DB_PORT_3306_TCP_ADDR}
-echo "=> MYSQL (docker port): " ${DB_PORT_3306_TCP_PORT}
-CONNECTION_URL=jdbc:mysql://${DB_PORT_3306_TCP_ADDR}:${DB_PORT_3306_TCP_PORT}/${DB_ENV_MYSQL_DATABASE}
+# The below variables are injected by Docker when running the container
+echo "=> MYSQL database: " ${DB_NAME}
+echo "=> MYSQL user: " ${DB_USERNAME}
+echo "=> MYSQL (docker host): " ${DB_URI}
+echo "=> MYSQL (docker port): " ${DB_PORT}
+CONNECTION_URL=jdbc:mysql://${DB_URI}:${DB_PORT}/${DB_NAME}
 echo "Connection URL: " ${CONNECTION_URL}
 
 #The below command creates the JDBC resource for WildFly using jboss-cli.
@@ -48,8 +46,8 @@ driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource 
 # Add the xa-datasource
 /subsystem=datasources/xa-data-source="XAMySqlDS":add(jndi-name="java:/XAMySqlDS",driver-name="mysql-xa")
 /subsystem=datasources/xa-data-source="XAMySqlDS"/xa-datasource-properties=URL:add(value="$CONNECTION_URL")
-/subsystem=datasources/xa-data-source="XAMySqlDS"/xa-datasource-properties=User:add(value="${DB_ENV_MYSQL_USER}")
-/subsystem=datasources/xa-data-source="XAMySqlDS"/xa-datasource-properties=Password:add(value="${DB_ENV_MYSQL_PASSWORD}")
+/subsystem=datasources/xa-data-source="XAMySqlDS"/xa-datasource-properties=User:add(value="${DB_USERNAME}")
+/subsystem=datasources/xa-data-source="XAMySqlDS"/xa-datasource-properties=Password:add(value="${DB_PASSWORD}")
 
 # Execute the batch
 run-batch
