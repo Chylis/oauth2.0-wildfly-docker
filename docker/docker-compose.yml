@@ -1,0 +1,30 @@
+mysqldb: #https://hub.docker.com/_/mysql/
+  container_name: "mysqldb"
+
+  # 'image' decides which image to use from docker hub
+  image: mysql:latest
+
+  # 'environment' sets environment variables
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+
+    # specify the name of a database to be created on image startup
+    MYSQL_DATABASE: oauth
+
+    # this user will be granted superuser permissions for the database specified by the MYSQL_DATABASE
+    MYSQL_USER: oauth
+    MYSQL_PASSWORD: oauth
+
+oauth:
+  container_name: "oauth"
+
+  image: chylis88/oauth-wildfly:0.1
+
+  #port to expose from Docker Host: to container
+  ports:
+    - "8080:8080" # web server port
+    - "9990:9990" # jboss admin port
+
+  #what containers to link to/with
+  links:
+    - mysqldb:db #link with the above mysqldb container and create an alias for the link named "db"

@@ -1,4 +1,3 @@
-- Configure session, e.g. timeout, etc
 - View session in admin console and TEST
 
 - Implement SUCCESS.html and FAIL.html pages
@@ -11,4 +10,11 @@
 - Add support for additional OAuth2.0 providers, e.g. Facebook, Twitter, etc...
 - Create Dockerfile
 - Create iOS client with ReactiveCocoa that:
-  -
+
+
+
+1. Sätt upp Docker image
+2. läs om 
+- Docker compose
+- Docker Swarm
+3. Sätt upp lastbalanserare + Docker wildfly kluster (en mysql samt distribuerade sessioner)

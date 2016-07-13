@@ -4,6 +4,10 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+
   <servlet-mapping>
     <servlet-name>javax.ws.rs.core.Application</servlet-name>
     <url-pattern>/api/*</url-pattern>

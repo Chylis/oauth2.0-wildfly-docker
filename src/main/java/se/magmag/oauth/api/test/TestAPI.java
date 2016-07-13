@@ -20,10 +20,17 @@ public class TestAPI {
     private UserService userService;
 
     @GET
-    @Path("greet")
+    @Path("authenticated")
     @Authenticated
     public String greet(@Context HttpServletRequest request) {
         User user = userService.getUserBySessionId(request.getSession().getId());
         return String.format("Hello there %s!", user.getName());
+    }
+
+    @GET
+    @Path("unauthenticated")
+    public String createUser(@Context HttpServletRequest request) {
+        User user = userService.createUser();
+        return String.format("User created %s!", user.getName());
     }
 }

@@ -19,7 +19,7 @@ public class UserService {
     private EntityManager em;
 
     /**
-     * Creates and returns a new user that "managed", i.e. currently associated with a transaction
+     * Creates and returns a new user that "managed", i.e. currently associated with a transaction (must be called from within a transaction)
      */
     public User createUser() {
         User user = new User();
